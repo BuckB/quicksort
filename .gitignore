@@ -33,6 +33,7 @@ buildNumber.properties
 # Eclipse
 .project
 .classpath
+.settings/
 
 # Visual Studio Code
 .vscode/
