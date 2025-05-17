@@ -6,6 +6,9 @@ public class QuickSorter {
         if (array == null) {
             throw new IllegalArgumentException("Input array cannot be null");
         }
+        if (array.length <= 1) {
+            return array;
+        }
         return array;
     }
 
