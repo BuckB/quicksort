@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class QuickSorterTest {
@@ -24,4 +25,14 @@ public class QuickSorterTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Input array cannot be null");
     }
+
+    @Test
+    @DisplayName("Given an empty array, when sort is called, then return an empty array")
+    void givenEmptyArray_whenSort_thenReturnEmptyArray() {
+        int[] array = {};
+        int[] result = this.quickSorter.sort(array);
+
+        assertThat(result).isEmpty();
+    }
+
 }
