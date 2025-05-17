@@ -35,4 +35,13 @@ public class QuickSorterTest {
         assertThat(result).isEmpty();
     }
 
+    @Test
+    @DisplayName("Given an array with one element, when sort is called, then return the same array")
+    void givenArrayWithOneElement_whenSort_thenReturnSameArray() {
+        int[] array = { 5 };
+        int[] result = this.quickSorter.sort(array);
+
+        assertThat(result).containsExactly(5);
+    }
+
 }
