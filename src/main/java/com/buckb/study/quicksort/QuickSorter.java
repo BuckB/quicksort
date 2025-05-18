@@ -9,6 +9,11 @@ public class QuickSorter {
         if (array.length <= 1) {
             return array;
         }
+        if (array[0] > array[1]) {
+            int temp = array[0];
+            array[0] = array[1];
+            array[1] = temp;
+        }
         return array;
     }
 
