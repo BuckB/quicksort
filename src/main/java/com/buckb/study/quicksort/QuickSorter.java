@@ -9,16 +9,39 @@ public class QuickSorter {
         if (array.length <= 1) {
             return array;
         }
-        if (array[0] > array[1]) {
-            this.swap(array, 0, 1);
-        }
+        this.quickSort(array, 0, array.length - 1);
         return array;
     }
 
-    private void swap(int[] array, int greaterValueIndex, int lowerValueIndex) {
+    private void swap(int[] array,
+            int greaterValueIndex, int lowerValueIndex) {
         int temp = array[greaterValueIndex];
         array[greaterValueIndex] = array[lowerValueIndex];
         array[lowerValueIndex] = temp;
     }
 
+    private int partition(int[] array,
+            int lowIndex, int highIndex) {
+        int pivot = array[highIndex];
+        int baseIndex = lowIndex - 1;
+        for (int step = lowIndex; step < highIndex; step++) {
+            if (array[step] <= pivot) {
+                baseIndex++;
+                if (baseIndex != step) {
+                    this.swap(array, baseIndex, step);
+                }
+            }
+        }
+        this.swap(array, baseIndex + 1, highIndex);
+        return baseIndex + 1;
+    }
+
+    private void quickSort(int[] array,
+            int lowIndex, int highIndex) {
+        if (lowIndex < highIndex) {
+            int pivotIndex = this.partition(array, lowIndex, highIndex);
+            this.quickSort(array, lowIndex, pivotIndex - 1);
+            this.quickSort(array, pivotIndex + 1, highIndex);
+        }
+    }
 }

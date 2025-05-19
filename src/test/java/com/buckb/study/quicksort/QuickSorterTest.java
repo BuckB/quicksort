@@ -61,4 +61,13 @@ public class QuickSorterTest {
 
         assertThat(result).containsExactly(13, 28);
     }
+
+    @Test
+    @DisplayName("Given an unsorted array with more than two elements, when sort is called, then return the sorted array")
+    void givenUnsortedArrayWithMoreThanTwoElements_whenSort_thenReturnSortedArray() {
+        int[] array = { 5, 3, 8, 1, 2 };
+        int[] result = this.quickSorter.sort(array);
+
+        assertThat(result).containsExactly(1, 2, 3, 5, 8);
+    }
 }
