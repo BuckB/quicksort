@@ -70,4 +70,13 @@ public class QuickSorterTest {
 
         assertThat(result).containsExactly(1, 2, 3, 5, 8);
     }
+
+    @Test
+    @DisplayName("Given an array with duplicate elements, when sort is called, then return the sorted array")
+    void givenArrayWithDuplicateElements_whenSort_thenReturnSortedArray() {
+        int[] array = { 5, 1, 4, 1, 5, 9, 2, 6 };
+        int[] result = this.quickSorter.sort(array);
+
+        assertThat(result).containsExactly(1, 1, 2, 4, 5, 5, 6, 9);
+    }
 }
