@@ -79,4 +79,16 @@ public class QuickSorterTest {
 
         assertThat(result).containsExactly(1, 1, 2, 4, 5, 5, 6, 9);
     }
+
+    @Test
+    @DisplayName("Given a QuickSorter with a LastElementPivotStrategy, when sorting, it should sort correctly")
+    void givenLastElementPivotStrategy_whenSorting_thenSortsCorrectly() {
+        // This is the key change: we're injecting a strategy
+        this.quickSorter = new QuickSorter(new LastElementPivotStrategy());
+
+        int[] array = { 3, 1, 4, 1, 5, 9, 2, 6 }; // A reasonably sized unsorted array with duplicates
+        int[] expected = { 1, 1, 2, 3, 4, 5, 6, 9 };
+        int[] result = this.quickSorter.sort(array);
+        assertThat(result).isEqualTo(expected);
+    }
 }
