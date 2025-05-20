@@ -32,7 +32,7 @@ public class QuickSorter {
 
     private int partition(int[] array,
             int lowIndex, int highIndex) {
-        int pivot = this.pivotStrategy.choosePivot(array, lowIndex, highIndex);
+        int pivot = array[this.pivotStrategy.choosePivot(array, lowIndex, highIndex)];
         int baseIndex = lowIndex - 1;
         for (int step = lowIndex; step < highIndex; step++) {
             if (array[step] <= pivot) {
