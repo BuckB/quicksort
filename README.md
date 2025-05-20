@@ -39,7 +39,23 @@ To implement Quicksort using TDD, we'll break the problem into smaller, testable
 3.  **`quickSortRecursive(int[] arr, int low, int high)` method:** A private helper method that implements the recursive logic of the Quicksort algorithm. It will take the array and the indices `low` and `high` to define the current sub-array being processed.
 4.  **`partition(int[] arr, int low, int high)` method:** A private helper method responsible for selecting a pivot and rearranging the elements in the sub-array (from `low` to `high`) around this pivot. It will return the final index of the pivot element.
 
-## 3. TDD Approach and Use Cases
+## 3. Clean Code and SOLID Principles
+
+Throughout the development, we will strive to:
+
+* **Clean Code:**
+    * Meaningful names for classes, methods, and variables.
+    * Small, focused methods.
+    * Clear and concise comments where necessary (but self-documenting code is preferred).
+    * Consistent formatting.
+* **SOLID Principles:**
+    * **Single Responsibility Principle (SRP):** Each class and method will have a single, well-defined responsibility. The `QuickSorter` class sorts, the `partition` method partitions.
+    * **Open/Closed Principle (OCP):** While our initial implementation will be concrete, we'll keep in mind that extensions (like different pivot strategies) should ideally be possible without modifying existing, working code (e.g., through strategy pattern, though perhaps overkill for this specific exercise unless explicitly requested).
+    * **Liskov Substitution Principle (LSP):** Not directly applicable here as we are not dealing with a deep inheritance hierarchy for the sorting logic itself.
+    * **Interface Segregation Principle (ISP):** If we were to define interfaces (e.g., `Sorter`), they would be lean and focused.
+    * **Dependency Inversion Principle (DIP):** We'll depend on abstractions if we introduce them. For this core algorithm, it's less prominent unless we abstract out, for example, the comparison logic or pivot strategy.
+
+## 4. TDD Approach and Use Cases
 
 We will follow the Red-Green-Refactor cycle of TDD:
 
@@ -94,18 +110,13 @@ We'll start with the core `sort` method and build up the functionality.
 **Use Case 9 (Optional/Refinement): Pivot Selection Strategy**
 * Initially, we'll use the last element as the pivot. We might explore other strategies (like median-of-three) later and refactor if necessary, ensuring all tests still pass. This is more of a performance optimization and refinement step.
 
-## 4. Clean Code and SOLID Principles
+## TDD Approach for Pivot Selection Strategy (Design Pattern Integration):
 
-Throughout the development, we will strive to:
+To introduce flexibility for different pivot selection strategies, we will employ the **Strategy Design Pattern**. This allows us to define an interface for pivot selection and then implement various strategies as concrete classes, which can be injected into the `QuickSorter`. This adheres to the Open/Closed Principle (OCP) by making the `QuickSorter` open for extension (new pivot strategies) but closed for modification (no need to change its core sorting logic when a new strategy is added).
 
-* **Clean Code:**
-    * Meaningful names for classes, methods, and variables.
-    * Small, focused methods.
-    * Clear and concise comments where necessary (but self-documenting code is preferred).
-    * Consistent formatting.
-* **SOLID Principles:**
-    * **Single Responsibility Principle (SRP):** Each class and method will have a single, well-defined responsibility. The `QuickSorter` class sorts, the `partition` method partitions.
-    * **Open/Closed Principle (OCP):** While our initial implementation will be concrete, we'll keep in mind that extensions (like different pivot strategies) should ideally be possible without modifying existing, working code (e.g., through strategy pattern, though perhaps overkill for this specific exercise unless explicitly requested).
-    * **Liskov Substitution Principle (LSP):** Not directly applicable here as we are not dealing with a deep inheritance hierarchy for the sorting logic itself.
-    * **Interface Segregation Principle (ISP):** If we were to define interfaces (e.g., `Sorter`), they would be lean and focused.
-    * **Dependency Inversion Principle (DIP):** We'll depend on abstractions if we introduce them. For this core algorithm, it's less prominent unless we abstract out, for example, the comparison logic or pivot strategy.
+Our TDD steps for this will be:
+1.  **Red (Test for Design Flexibility):** Write a test that attempts to construct the `QuickSorter` with a `PivotStrategy` interface (e.g., `LastElementPivotStrategy`). This test will initially fail because the `QuickSorter` constructor doesn't support this injection, and the `PivotStrategy` interface/class doesn't exist in `main` yet.
+
+2.  **Green (Implement Interface and Constructor):** Create the `PivotStrategy` interface and a concrete `LastElementPivotStrategy` class. Modify the `QuickSorter` to accept a `PivotStrategy` in its constructor and use it in the `partition` method. This will make the test compile and pass, bringing us to a "Green" state.
+
+3.  **Refactor (Integrate and Clean Up):** Ensure all existing tests still pass. Refactor the `QuickSorter` and related classes for clarity and adherence to SOLID principles. We'll specifically ensure the `partition` method delegates pivot selection to the injected strategy.
