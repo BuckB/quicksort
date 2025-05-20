@@ -2,6 +2,16 @@ package com.buckb.study.quicksort;
 
 public class QuickSorter {
 
+    private PivotStrategy pivotStrategy;
+
+    public QuickSorter() {
+        this(new LastElementPivotStrategy());
+    }
+
+    public QuickSorter(PivotStrategy pivotStrategy) {
+        this.pivotStrategy = pivotStrategy;
+    }
+
     public int[] sort(int[] array) {
         if (array == null) {
             throw new IllegalArgumentException("Input array cannot be null");
@@ -22,7 +32,7 @@ public class QuickSorter {
 
     private int partition(int[] array,
             int lowIndex, int highIndex) {
-        int pivot = array[highIndex];
+        int pivot = this.pivotStrategy.choosePivot(array, lowIndex, highIndex);
         int baseIndex = lowIndex - 1;
         for (int step = lowIndex; step < highIndex; step++) {
             if (array[step] <= pivot) {
