@@ -91,4 +91,15 @@ public class QuickSorterTest {
         int[] result = this.quickSorter.sort(array);
         assertThat(result).isEqualTo(expected);
     }
+
+    @Test
+    @DisplayName("Given a QuickSorter with a FirstElementPivotStrategy, when sorting, it should sort correctly")
+    void givenFirstElementPivotStrategy_whenSorting_thenSortsCorrectly() {
+        this.quickSorter = new QuickSorter(new FirstElementPivotStrategy()); // Instantiate with the new strategy
+
+        int[] array = { 4, 2, 8, 1, 7, 3, 5, 6 }; // Example array
+        int[] expected = { 1, 2, 3, 4, 5, 6, 7, 8 };
+        int[] result = this.quickSorter.sort(array);
+        assertThat(result).isEqualTo(expected);
+    }
 }
